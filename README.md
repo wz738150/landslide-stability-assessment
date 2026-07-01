@@ -17,26 +17,34 @@ The project follows a rigorous engineering layout with nested pipeline stages ma
 
 ```text
 landslide-stability-assessment/
+├── sample.py                          # Global test script for dataset & model debugging
 ├── data/
 │   └── ssap_dat/
-│       └── 0_Main.dat                # Source geometric/stratigraphic physical inputs
+│       ├── 0_Main.dat                # Source geometric/stratigraphic physical inputs
+│       ├── SSAP_Features.csv          # Full terrain feature dataset of SSAP units
+│       └── Test_Set_Fixed.csv         # Fixed independent hold-out test set for model validation
 ├── src/
 │   ├── stage1/
+│   │   ├── catboost_info/
 │   │   └── First-round sample selection.py   # Active Learning Round 1 uncertainty mining
 │   ├── stage2/
+│   │   ├── catboost_info/
 │   │   ├── First-round data addition.py      # Augmenting training pool with Round 1 labels
 │   │   └── Second-round sample selection.py  # Active Learning Round 2 uncertainty mining
 │   ├── stage3/
+│   │   ├── catboost_info/
 │   │   ├── Second-round data addition.py     # Augmenting training pool with Round 2 labels
 │   │   └── Third-round sample selection.py   # Active Learning Round 3 uncertainty mining
 │   ├── stage4/
+│   │   ├── catboost_info/
 │   │   ├── Third-round data addition.py      # Augmenting training pool with Round 3 labels
 │   │   └── Fourth-round sample selection.py  # Active Learning Round 4 uncertainty mining
 │   ├── stage5/
+│   │   ├── catboost_info/
 │   │   ├── Fourth-round data addition.py     # Augmenting training pool with Round 4 labels
 │   │   └── Fifth-round sample selection.py   # Active Learning Round 5 final optimization
 │   ├── Initial sample.py             # Selection of the 1,000 initial baseline samples
-│   ├── Model.py                      # Machine learning surrogate model definition (SVM/Ensembles)
+│   ├── Model.py                      # Machine learning surrogate model definition (CatBoost ensemble)
 │   ├── mod_data_generation.py        # Core terrain feature variable generation
 │   └── ssap_dataset_creation.py      # Compiling multi-directional FoS from SSAP outputs
 └── README.md                         # Project documentation and execution guide
